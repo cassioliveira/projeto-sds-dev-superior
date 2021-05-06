@@ -1,8 +1,18 @@
+import Datatable from "components/Datatable";
+import Footer from "components/Footer";
+import NavBar from "components/Navbar";
+import React from "react";
+
 function App() {
   return (
-    <div>
-      <h1 className="text-primary">Semana Spring React</h1>
-    </div>
+    //O retorno da função só pode ter um elemento, então todo o código entre <> E </> (FRAGMENT) é considerado um único elemento.
+    <>
+      <NavBar />
+      <div className="container">
+        <Datatable />
+      </div>
+      <Footer />
+    </>
   );
 }
 
