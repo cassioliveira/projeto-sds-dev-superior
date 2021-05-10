@@ -22,14 +22,8 @@ const DonutChart = () => {
 
                 setchartData({ labels: myLabels, series: mySeries });
             });
-    }, [])
+    }, []);
 
-
-
-    //const mockData = {
-    //    series: [477138, 55555, 444867, 220426, 473088],
-    //    labels: ['Wolverine', 'Macgyver', 'Kal-El', 'Jack Oneill', 'Padmé']
-    //}
 
     const options = {
         legend: {
