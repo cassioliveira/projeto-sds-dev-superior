@@ -1,11 +1,32 @@
+import axios from 'axios';
 import Chart from 'react-apexcharts'
+import { SaleSum } from 'types/sale';
+import { BASE_URL } from 'utils/requestes';
+
+type ChartData = {
+    labels: string[];
+    series: number[];
+}
 
 const DonutChart = () => {
 
-    const mockData = {
-        series: [477138, 55555, 444867, 220426, 473088],
-        labels: ['Wolverine', 'Macgyver', 'Kal-El', 'Jack Oneill', 'Padmé']
-    }
+    let chartData: ChartData = { labels: [], series: [] };
+
+    axios.get(`${BASE_URL}/sales/amount-by-seller`)
+        .then(response => {
+
+            const data = response.data as SaleSum[];
+            const myLabels = data.map(x => x.sellerName);
+            const mySeries = data.map(x => x.sum);
+
+            chartData = { labels: myLabels, series: mySeries };
+            console.log(chartData);
+        });
+
+    //const mockData = {
+    //    series: [477138, 55555, 444867, 220426, 473088],
+    //    labels: ['Wolverine', 'Macgyver', 'Kal-El', 'Jack Oneill', 'Padmé']
+    //}
 
     const options = {
         legend: {
@@ -16,10 +37,10 @@ const DonutChart = () => {
     return (
         /* Uma variável com chaves, no React, vai ser incorporada ao JSX. No caso, essa entre chaves é 
        a referencia para a constante de mesmo nome acima.
-              Permite usar todas as propriedades do objeto mockData e permite adicionar mais informações*/
+       Permite usar todas as propriedades do objeto mockData e permite adicionar mais informações*/
         <Chart
-            options={{ ...options, labels: mockData.labels }}
-            series={mockData.series}
+            options={{ ...options, labels: chartData.labels }}
+            series={chartData.series}
             type="donut"
             height="240"
         />
